@@ -3,7 +3,7 @@
 #include <cs50.h>
 #include <math.h>
 #include <string.h>
-#include <stdio.h>
+#include <stdlib.h>
 
 #include "helpers.h"
 
@@ -12,35 +12,13 @@ int duration(string fraction)
 {
     // TODO
 
-        if(fraction[0] == '1')
-    {
-        if(fraction[2] == '8')
-        {
-            return 1;
-        }
-        else if(fraction[2] == '4')
-        {
-            return 2;
-        }
-        else if(fraction[2] == '2')
-        {
-            return 4;
-        }
-        else if(fraction[2] == '1')
-        {
-            return 8;
-        }
-    }
-    else if(fraction[0] == '3' && fraction[2] == '8')
-    {
-        return 3;
-    }
-    else
-    {
-        return 0;
-    }
-    return 0;
+        //Convert numerator and denominator to integer
+    int numerator = fraction[0] - '0';
+    int denominator = fraction[2] - '0';
 
+
+    //Convert the numerator to number of eighths
+    return (8 / denominator) * numerator;
 }
 
 // Calculates frequency (in Hz) of a note
@@ -48,64 +26,66 @@ int frequency(string note)
 {
     // TODO
 
-        // Parse the String into its Note and Octave
-    // char s_note = note[0];
-    int octave = note[strlen(note) - 1];
-    octave -= 48; // Adjust Ascii to int value
+    //Get octave from last char in note string
+    int octave = note[strlen(note) - 1] - '0';
+
 
     // Determine Frequency of note in the given octive
     double freq = 0.0;
 
     // Determine note letter
-    switch(note[0])
+    if (note[0] == 'A')
     {
-        case 'C' :
-            freq = 440.0 / (pow(2.0, (9.0 / 12.0)));
-            break;
-        case 'D' :
-            freq = 440.0 / (pow(2.0, (7.0 / 12.0)));
-            break;
-        case 'E' :
-            freq = 440.0 / (pow(2.0, (5.0 / 12.0)));
-            break;
-        case 'F' :
-            freq = 440.0 / (pow(2.0, (4.0 / 12.0)));
-            break;
-        case 'G' :
-            freq = 440.0 / (pow(2.0, (2.0 / 12.0)));
-            break;
-        case 'A' :
-            freq = 440.0;
-            break;
-        case 'B' :
-            freq = 440.0 * (pow(2.0, (2.0 / 12.0)));
-            break;
-        default :
-            return 0;
+        freq = 440;
+    }
+    else if (note[0] == 'B')
+    {
+        freq = 440.0 * (pow(2.0, (2.0 / 12.0)));
+    }
+    else if (note[0] == 'C')
+    {
+        freq = 440.0 / (pow(2.0, (9.0 / 12.0)));
+    }
+    else if (note[0] == 'D')
+    {
+        freq = 440.0 / (pow(2.0, (7.0 / 12.0)));
+    }
+    else if (note[0] == 'E')
+    {
+        freq = 440.0 / (pow(2.0, (5.0 / 12.0)));
+    }
+    else if (note[0] == 'F')
+    {
+        freq = 440.0 / (pow(2.0, (4.0 / 12.0)));
+    }
+    else if (note[0] == 'G')
+    {
+        freq = 440.0 / (pow(2.0, (2.0 / 12.0)));
     }
 
+
     // Loop to shift octave
-    if(octave > 4)
+    if (octave > 4)
     {
-        for(int i = 0; i < octave - 4; i++)
+        for (int i = 0; i < octave - 4; i++)
         {
             freq *= 2.0;
         }
     }
-    else if(octave < 4)
+    else if (octave < 4)
     {
-        for(int i = 0; i < 4 - octave; i++)
+        for (int i = 0; i < 4 - octave; i++)
         {
             freq /= 2.0;
         }
     }
 
     // Final adjustment or flat or sharp
-    if(note[1] == 'b')
+    if (note[1] == 'b')
     {
         freq /= (pow(2.0, (1.0 / 12.0)));
     }
-    else if(note[1] == '#')
+    else if (note[1] == '#')
     {
         freq *= (pow(2.0, (1.0 / 12.0)));
     }
@@ -113,9 +93,8 @@ int frequency(string note)
 
 
     // Return frequency value as an int
-    int ret = round(freq);
-    return ret;
-
+    int result = round(freq);
+    return result;
 }
 
 // Determines whether a string represents a rest
@@ -123,12 +102,12 @@ bool is_rest(string s)
 {
     // TODO
 
-    if(strcmp(s,""))
+    if (s[0] == '\0')
     {
-        return false;
+        return true;
     }
     else
     {
-        return true;
+        return false;
     }
 }
