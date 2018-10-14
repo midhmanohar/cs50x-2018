@@ -6,7 +6,7 @@ while(True):
     if(change>0):
         break
 count=0
-change=floor(change*100)
+change=floor(change*100)  #for float multiplication error
 print("{}".format(change))
 while(change>=1):
 

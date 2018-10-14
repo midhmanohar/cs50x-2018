@@ -23,8 +23,8 @@ for i in p:
     if(i.isalpha()):
         if(k[j%l].isalpha()):
             if(k[j%l].isupper()):
-                key=chr(ord(k[j%l])-ord('A'))
-            if(k[j%l].islower()):
+                key=chr(ord(k[j%l])-ord('A'))                   #ascii to string conversion need chr()
+            if(k[j%l].islower()):				#string to ascii conversion need ord()	
                 key=chr(ord(k[j%l])-ord('a'))
         else:
             print(i,end="")

@@ -7,7 +7,7 @@ while(True):
 for j in range(2,height+2):
     for i in range(height+1,0,-1):
         if(i<=j):
-            print("#",end="")
+            print("#",end=" ")
         else:
             print("",end=" ")
     print()
